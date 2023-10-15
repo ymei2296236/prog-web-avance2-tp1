@@ -3,8 +3,6 @@
 require_once('class/CRUD.php');
 $crud = new CRUD;
 $film = $crud->select('film', 'titre');
-$genre = $crud->select('genre');
-// print_r($film);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +10,7 @@ $genre = $crud->select('genre');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste de films</title>
+    <title>Films classiques</title>
     <style>
         body {
             margin:4rem;
@@ -30,8 +28,8 @@ $genre = $crud->select('genre');
             font-size:1.5rem;
         }
         a {
-            text-decoration:none;
             color: black;
+            text-underline-offset: 8px;
         }
 
         .bouton {
@@ -46,11 +44,19 @@ $genre = $crud->select('genre');
             border-radius:10px;
         }
 
+        .bouton--secondaire {
+            margin-top: 1.5rem;
+            color: black;
+            padding:0.3rem 1rem;
+            background-color:white;
+            border: 1.5px solid black;
+        }
+
     </style>
 </head>
 <body>
     <main>
-        <h1>Tous les films</h1>
+        <h1>Films classiques</h1>
 
             <?php foreach ($film as $row) 
             {?>
@@ -58,7 +64,10 @@ $genre = $crud->select('genre');
             <?php         
             } ?>
         
-        <a class="bouton" href="film-create.php">Ajouter un film</a>
+        <a class="bouton" href="role-list.php">Rôles</a>
+        <a class="bouton" href="acteur-list.php">Acteurs / Actrices</a>
+        <a class="bouton bouton--secondaire" href="film-create.php">Ajouter un film</a>
+
     </main>
 </body>
 </html>

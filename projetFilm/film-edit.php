@@ -1,8 +1,22 @@
 <?php
-require_once('class/CRUD.php');
-$crud = new CRUD;
-$genres = $crud->select('genre', 'nom');
-$acteurs = $crud->select('acteur', 'nom');
+
+if(isset($_GET['id']) && $_GET['id'] != null ) {
+
+    require_once('class/CRUD.php');
+    
+    $crud = new CRUD;
+
+    $film = $crud->selectId('film', $_GET['id']);
+    extract($film);
+
+    $genres = $crud->select('genre', 'nom');
+    $genreTrouve = $crud->selectId('genre', $genre_id);
+    $genreTrouve_id = $genreTrouve['id'];
+
+}else {
+    header('Location:index.php');
+}
+
 
 ?>
 
@@ -11,7 +25,7 @@ $acteurs = $crud->select('acteur', 'nom');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un film</title>
+    <title>Modifier le film</title>
     <style>
         * {
             box-sizing: border-box;
@@ -44,50 +58,60 @@ $acteurs = $crud->select('acteur', 'nom');
             border-radius:10px;
             border: 0;
         }
-
         .bouton {
             display:inline-block;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             margin-right:1rem;
             letter-spacing:0.5px;
             text-decoration:none;
+            color:white;
+            padding:0.4rem 1rem;
+            background-color: #222;
+            border-radius:10px;
+        }
+
+        .bouton--secondaire {
+            margin-top: 1.5rem;
             color: black;
             padding:0.3rem 1rem;
-            border-radius:10px;
+            background-color:white;
             border: 1.5px solid black;
         }
     </style>
 </head>
 <body>
     <main>
-        <h1>Ajouter un film</h1>
-        <form action="film-store.php" method="post">
+        <h1>Modifier le film</h1>
+        <form action="film-update.php" method="post">
+        <input type="hidden" name="id" value="<?= $id; ?>">
+
             <label>Titre
-                <textarea name="titre" cols=40 rows=2 ></textarea>
+                <input type="text" name="titre" value="<?=$titre?>">
             </label>
             <label>Année de production
-                <input type="number" placeholder="YYYY" name="anneeProduction">
+                <input type="number" name="anneeProduction" value="<?=$anneeProduction?>"> 
             </label>
             <label>Synopsis
-                <textarea name="synopsis" cols=40 rows=10 ></textarea>
+                <textarea name="synopsis" cols=40 rows=10><?=$synopsis?></textarea>
             </label>
             <label>Duree (minutes)
-                <input type="number" name="duree">
+                <input type="number" name="duree" value="<?=$duree?>">
             </label>
             <label>Genre
                 <select name="genre_id">
                     <?php 
                         foreach ($genres as $genre) {
                     ?>
-                        <option value="<?= $genre['id']?>"><?=$genre['nom']?></option>
+                        <option value="<?= $genre['id']?>" <?php if ($genreTrouve_id == $genre['id']) {?> selected <?php } ?> ><?=$genre['nom']?></option>
                     <?php 
                         }
                     ?>
                 </select>
             </label>
-            <input type="submit" value="Enovyer">
+            <input type="submit" value="Enregistrer">
+
         </form>
-        <a class="bouton" href="film-index.php">Retourner</a>
+        <a class="bouton bouton--secondaire" href="index.php">Retourner</a>
     </main>
 </body>
 </html>

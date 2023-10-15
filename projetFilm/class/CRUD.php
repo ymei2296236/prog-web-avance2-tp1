@@ -3,7 +3,11 @@
 class CRUD extends PDO {
 
     public function __construct() {
-        parent::__construct('mysql:host=localhost; dbname=film; port=8889; charset=utf8', 'root', 'root');
+        // Pour connecter à la base des données sur mon serveur local 
+        // parent::__construct('mysql:host=localhost; dbname=film; port=8889; charset=utf8', 'root', 'root');
+
+        // Pour connecter à la base des données de Webdev
+        parent::__construct('mysql:host=localhost; dbname=e2296236; port=3306; charset=utf8', 'e2296236', 'owioZ7vb1n0D0d4uLPw4');
     }
 
     public function select($table, $field='id', $order='ASC') {
@@ -20,7 +24,7 @@ class CRUD extends PDO {
         if($count == 1) {
             return $stmt->fetch();
         } else {
-            header('Locatoin:film-index.php');
+            header('Locatoin:index.php');
         }
     }
 
@@ -48,7 +52,7 @@ class CRUD extends PDO {
         $stmt = $this->prepare($sql);
         $stmt->bindValue(":$field", $value);
         $stmt->execute();
-        header('location:film-index.php');
+        header('location:index.php');
     }
 
     public function update($table, $data, $field='id'){

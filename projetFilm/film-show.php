@@ -1,21 +1,26 @@
 <?php
-if(isset($_GET['id']) && $_GET['id'] != null) {
+if(isset($_GET['id']) && $_GET['id'] != null)  {
+    $id = $_GET['id'];
+    
+} else if (isset($_GET['film_id']) && $_GET['film_id'] != null) {
+    $id = $_GET['film_id'];
+}
+
+else {
+    header('Location:index.php');
+}
+if($id) {
 
     require_once('class/CRUD.php');
     $crud = new CRUD;
-    $film = $crud->selectId('film', $_GET['id']);
-
+    $film = $crud->selectId('film', $id);
+    
     extract($film);
-
+    
     $genre = $crud->selectId('genre', $genre_id);
     $genre_nom = $genre['nom'];
-
-    $acteur = $crud->selectId('acteur', $id);
-    $acteur_nom = $acteur['prenom']. " ". $acteur['nom'] ;
-
-} else {
-    header('Location:film-index.php');
 }
+
 
 ?>
 
@@ -49,14 +54,22 @@ if(isset($_GET['id']) && $_GET['id'] != null) {
 
         .bouton {
             display:inline-block;
-            margin-top: 1rem;
+            margin-top: 2rem;
             margin-right:1rem;
             letter-spacing:0.5px;
             text-decoration:none;
             color:white;
-            padding:0.3rem 1rem;
+            padding:0.4rem 1rem;
             background-color: #222;
             border-radius:10px;
+        }
+
+        .bouton--secondaire {
+            margin-top: 1.5rem;
+            color: black;
+            padding:0.3rem 1rem;
+            background-color:white;
+            border: 1.5px solid black;
         }
 
     </style>
@@ -79,10 +92,6 @@ if(isset($_GET['id']) && $_GET['id'] != null) {
                 <td><?=$synopsis?></td>
             </tr>
             <tr>
-                <th>Acteur / Actrice</th>
-                <td><?=$acteur_nom?></td>
-            </tr>
-            <tr>
                 <th>Durée</th>
                 <td><?=$duree?></td>
             </tr>
@@ -93,7 +102,7 @@ if(isset($_GET['id']) && $_GET['id'] != null) {
         </table>
         <a class="bouton" href="film-edit.php?id=<?=$id?>">Modifier</a>
         <a class="bouton" href="film-delete.php?id=<?=$id?>">Supprimer</a>
-        <a class="bouton" href="film-index.php">Retourner à la liste</a>
+        <a class="bouton bouton--secondaire" href="index.php">Retourner à la liste</a>
     </main>    
 </body>
 </html>

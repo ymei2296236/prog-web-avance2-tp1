@@ -8,6 +8,6 @@ if(isset($_GET['id']) && $_GET['id'] != null ) {
     $delete = $crud->delete('film', $id);
 
 }else {
-    header('Location:film-index.php');
+    header('Location:index.php');
 }
 ?>
