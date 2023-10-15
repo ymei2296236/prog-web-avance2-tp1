@@ -13,6 +13,7 @@ class CRUD extends PDO {
     public function select($table, $field='id', $order='ASC') {
         $sql = "SELECT * FROM $table ORDER BY $field $order";
         $stmt = $this->query($sql);
+
         return $stmt->fetchAll();
     } 
 
@@ -32,7 +33,7 @@ class CRUD extends PDO {
     
         $nomChamp = implode(", ",array_keys($data));
         $valeurChamp = ":".implode(", :", array_keys($data));
-    
+
         $sql = "INSERT INTO $table ($nomChamp) VALUES ($valeurChamp)";
         $stmt = $this->prepare($sql);
 
@@ -58,21 +59,23 @@ class CRUD extends PDO {
     public function update($table, $data, $field='id'){
       
         $queryField = null;
+
         foreach($data as $key=>$value){
             $queryField .="$key =:$key, ";
         }
+
         $queryField = rtrim($queryField, ", ");
         
         $sql = "UPDATE $table SET $queryField WHERE $field = :$field";
-
         $stmt = $this->prepare($sql);
+
         foreach($data as $key => $value){
             $stmt->bindValue(":$key", $value);
         }
+
         $stmt->execute();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
 }
 

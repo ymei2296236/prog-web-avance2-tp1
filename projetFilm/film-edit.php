@@ -3,9 +3,7 @@
 if(isset($_GET['id']) && $_GET['id'] != null ) {
 
     require_once('class/CRUD.php');
-    
     $crud = new CRUD;
-
     $film = $crud->selectId('film', $_GET['id']);
     extract($film);
 
@@ -30,15 +28,18 @@ if(isset($_GET['id']) && $_GET['id'] != null ) {
         * {
             box-sizing: border-box;
         }
+
         body {
             margin:4rem;
             background-color: #eee;
         }
+
         main {
             background-color: #fff;
             padding: 4rem;
             width:30rem;
         }
+
         input:not([type='submit']), textarea, select {
             display:block;
             margin: 0.5rem 0 1rem 0;
@@ -58,6 +59,7 @@ if(isset($_GET['id']) && $_GET['id'] != null ) {
             border-radius:10px;
             border: 0;
         }
+
         .bouton {
             display:inline-block;
             margin-top: 2rem;
@@ -82,9 +84,9 @@ if(isset($_GET['id']) && $_GET['id'] != null ) {
 <body>
     <main>
         <h1>Modifier le film</h1>
-        <form action="film-update.php" method="post">
-        <input type="hidden" name="id" value="<?= $id; ?>">
 
+        <form action="film-update.php" method="post">
+            <input type="hidden" name="id" value="<?= $id; ?>">
             <label>Titre
                 <input type="text" name="titre" value="<?=$titre?>">
             </label>
@@ -100,17 +102,19 @@ if(isset($_GET['id']) && $_GET['id'] != null ) {
             <label>Genre
                 <select name="genre_id">
                     <?php 
-                        foreach ($genres as $genre) {
+                    foreach ($genres as $genre) {
                     ?>
-                        <option value="<?= $genre['id']?>" <?php if ($genreTrouve_id == $genre['id']) {?> selected <?php } ?> ><?=$genre['nom']?></option>
+                        <option value="<?= $genre['id']?>" <?php if ($genreTrouve_id == $genre['id']) {?> selected <?php } ?> >
+                            <?=$genre['nom']?>
+                        </option>
                     <?php 
-                        }
+                    }
                     ?>
                 </select>
             </label>
             <input type="submit" value="Enregistrer">
-
         </form>
+        
         <a class="bouton bouton--secondaire" href="index.php">Retourner</a>
     </main>
 </body>

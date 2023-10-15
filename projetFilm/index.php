@@ -3,6 +3,7 @@
 require_once('class/CRUD.php');
 $crud = new CRUD;
 $film = $crud->select('film', 'titre');
+
 ?>
 
 <!DOCTYPE html>
@@ -16,17 +17,21 @@ $film = $crud->select('film', 'titre');
             margin:4rem;
             background-color: #eee;
         }
+
         main {
             background-color: #eee;
             padding: 4rem;
             width:30rem;
         }
+
         h1{
             margin-bottom: 4rem;
         }
+
         p {
             font-size:1.5rem;
         }
+
         a {
             color: black;
             text-underline-offset: 8px;
@@ -58,16 +63,17 @@ $film = $crud->select('film', 'titre');
     <main>
         <h1>Films classiques</h1>
 
-            <?php foreach ($film as $row) 
-            {?>
+            <?php 
+            foreach ($film as $row){
+            ?>
                 <p><a href="film-show.php?id=<?=$row['id']?>"> <?=$row['titre']?></a> </p>
             <?php         
-            } ?>
+            } 
+            ?>
         
         <a class="bouton" href="role-list.php">Rôles</a>
         <a class="bouton" href="acteur-list.php">Acteurs / Actrices</a>
         <a class="bouton bouton--secondaire" href="film-create.php">Ajouter un film</a>
-
     </main>
 </body>
 </html>

@@ -4,17 +4,15 @@ if(isset($_GET['id']) && $_GET['id'] != null)  {
     
 } else if (isset($_GET['film_id']) && $_GET['film_id'] != null) {
     $id = $_GET['film_id'];
-}
-
-else {
+} else {
     header('Location:index.php');
 }
+
 if($id) {
 
     require_once('class/CRUD.php');
     $crud = new CRUD;
-    $film = $crud->selectId('film', $id);
-    
+    $film = $crud->selectId('film', $id); 
     extract($film);
     
     $genre = $crud->selectId('genre', $genre_id);
@@ -35,18 +33,22 @@ if($id) {
             margin:4rem;
             background-color: #eee;
         }
+
         main {
             background-color: #fff;
             padding: 4rem;
             width:30rem;
         }
+
         table{
             margin-bottom: 2rem;
         }
+
         th {
             text-align: left;
 
         }
+
         td {
             max-width:25rem;
             padding:1rem 2rem;
@@ -100,6 +102,7 @@ if($id) {
                 <td><?=$genre_nom?></td>
             </tr>
         </table>
+        
         <a class="bouton" href="film-edit.php?id=<?=$id?>">Modifier</a>
         <a class="bouton" href="film-delete.php?id=<?=$id?>">Supprimer</a>
         <a class="bouton bouton--secondaire" href="index.php">Retourner à la liste</a>

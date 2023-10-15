@@ -17,17 +17,21 @@ $acteurs = $crud->select('acteur', 'nom');
             margin:4rem;
             background-color: #eee;
         }
+
         main {
             background-color: #eee;
             padding: 4rem;
             width:30rem;
         }
+
         h1{
             margin-bottom: 4rem;
         }
+
         p {
             font-size:1.5rem;
         }
+
         a {
             text-decoration:none;
             color: black;
@@ -50,9 +54,13 @@ $acteurs = $crud->select('acteur', 'nom');
 <body>
     <main>
         <h1>Acteurs / Actrices</h1>
-        <?php foreach ($acteurs as $acteur) {?>
+        <?php 
+        foreach ($acteurs as $acteur) {
+        ?>
             <p><?= $acteur['prenom']?> <?= $acteur['nom']?></p>
-        <?php }?>
+        <?php 
+        }
+        ?>
         <a class="bouton" href="index.php">Films</a>
         <a class="bouton" href="role-list.php">Rôles</a>
     </main>

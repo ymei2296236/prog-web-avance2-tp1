@@ -1,6 +1,6 @@
 <?php
-require_once('class/CRUD.php');
 
+require_once('class/CRUD.php');
 $crud = new CRUD;
 $roles = $crud->select('role', 'nom');
 
@@ -17,17 +17,21 @@ $roles = $crud->select('role', 'nom');
             margin:4rem;
             background-color: #eee;
         }
+
         main {
             background-color: #eee;
             padding: 4rem;
-            width:30rem;
+            width:60rem;
         }
+
         h1{
             margin-bottom: 4rem;
         }
+
         p {
             font-size:1.5rem;
         }
+
         a {
             text-underline-offset: 8px;
             color: black;
@@ -44,19 +48,23 @@ $roles = $crud->select('role', 'nom');
             background-color: #222;
             border-radius:10px;
         }
-
     </style>
 </head>
 <body>
     <main>
         <h1>Rôles de films classiques</h1>
-        <?php foreach ($roles as $role) { ?>
-        <p>
-            <a href="film-show.php?id=<?= $role['film_id']?>"> 
-            <?= $role['nom']?></a>
-        </p>
-        <?php } ?>
-
+        <?php 
+        foreach ($roles as $role) { 
+            $film = $crud->selectId('film', $role['film_id']);
+            $nom_film = $film['titre'];
+            $acteur = $crud->selectId('acteur', $role['acteur_id']);
+            $nom_acteur = $acteur['prenom']. " " . $acteur['nom'];
+        ?>
+            <p> 
+            <?= $role['prenom'] . " ". $role['nom']?> par <?= $nom_acteur ?> dans le film <a href="film-show.php?id=<?= $role['film_id']?>"><?= $nom_film?></a></p>
+        <?php 
+        } 
+        ?>
         <a class="bouton" href="index.php">Films</a>
         <a class="bouton" href="acteur-list.php">Acteurs / Actrices</a>
     </main>
