@@ -105,7 +105,7 @@ if($id) {
         
         <a class="bouton" href="film-edit.php?id=<?=$id?>">Modifier</a>
         <a class="bouton" href="film-delete.php?id=<?=$id?>">Supprimer</a>
-        <a class="bouton bouton--secondaire" href="index.php">Retourner à la liste</a>
+        <a class="bouton bouton--secondaire" href="index.php">Retourner à la liste de films</a>
     </main>    
 </body>
 </html>
